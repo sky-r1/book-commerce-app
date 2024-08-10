@@ -15,7 +15,7 @@ export default async function Home() {
   let purchaseBookIds: string[] = [];
 
   if (user) {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/purchases/${user.id}`);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/purchases/${user.id}`, { cache: "no-store" });
     const purchaseData = await response.json();
     // console.log(purchaseData);
 
@@ -28,7 +28,7 @@ export default async function Home() {
       <main className="flex flex-wrap justify-center items-center md:mt-32 mt-20">
         <h2 className="text-center w-full font-bold text-3xl mb-2">Book Commerce</h2>
         {contents.map((book: BookType) => (
-          <Book key={book.id} book={book} isPurchased={purchaseBookIds.includes(book.id)} />
+          <Book key={book.id} book={book} isPurchased={purchaseBookIds.includes(book.id)} user={user} />
         ))}
       </main>
     </>
